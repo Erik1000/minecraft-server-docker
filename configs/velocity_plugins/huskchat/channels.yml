@@ -1,0 +1,63 @@
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃      HuskChat - Channels     ┃
+# ┃    Developed by William278   ┃
+# ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ┣╸ Information: https://william278.net/project/huskchat/
+# ┗╸ Channels Help: https://william278.net/docs/huskchat/channels/
+
+# The default chat channel players are placed in (can be overridden by server_default_channels)
+default_channel: global
+# Map of server names to a channel players will be automatically moved into when they join that server
+server_default_channels:
+    example: global
+# The format of log messages (applies to channels with logging enabled)
+channel_log_format: "[CHAT] [%channel%] %sender%: "
+# Aliases for the /channel command
+channel_command_aliases:
+    - channel
+    - c
+# Channel definitions
+channels:
+    - id: local
+      format: "%fullname%&r&f: "
+      broadcast_scope: LOCAL
+      log_to_console: true
+      restricted_servers: []
+      filtered: true
+      permissions: {}
+      shortcut_commands:
+          - /local
+          - /l
+    - id: global
+      format: "&#00fb9a&[G]&r&f %fullname%&r&f: "
+      broadcast_scope: GLOBAL
+      log_to_console: true
+      restricted_servers: []
+      filtered: true
+      permissions: {}
+      shortcut_commands:
+          - /global
+          - /g
+    - id: staff
+      format: "&e[Staff] %name%: &7"
+      broadcast_scope: GLOBAL
+      log_to_console: true
+      restricted_servers: []
+      filtered: false
+      permissions:
+          send: huskchat.channel.staff.send
+          receive: huskchat.channel.staff.receive
+      shortcut_commands:
+          - /staff
+          - /sc
+    - id: helpop
+      format: "&#00fb9a&[HelpOp] %name%:&7"
+      broadcast_scope: GLOBAL
+      log_to_console: true
+      restricted_servers: []
+      filtered: false
+      permissions:
+          receive: huskchat.channel.helpop.receive
+      shortcut_commands:
+          - /helpop
+          - /helpme

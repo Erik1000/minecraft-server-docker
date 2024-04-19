@@ -1,0 +1,16 @@
+services:
+  server:
+    image: t
+    env_file: .env
+    ports:
+      - "0.0.0.0:25565:25565"
+    volumes:
+      - "./server:/data"
+  proxy:
+    image: v
+    env_file: .env
+    ports:
+      - "0.0.0.0:25577:25577"
+    volumes:
+      - "${PWD}/velocity.toml:/config/velocity.toml:ro"
+      - "./proxy:/server"

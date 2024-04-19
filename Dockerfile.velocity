@@ -1,0 +1,59 @@
+FROM itzg/bungeecord AS base
+
+ARG version=LATEST
+ENV TYPE=VELOCITY
+ENV VELOCITY_VERSION=${version}
+ENV ENABLE_RCON=true
+ENV SYNC_SKIP_NEWER_IN_DESTINATION=false
+# include .secret in replace suffixes because of forwarding.secret
+ENV REPLACE_ENV_SUFFIXES=yml,yaml,txt,cfg,conf,properties,hjson,json,tml,toml,secret
+ENV REPLACE_ENV_VARIABLES=true
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y jq \
+    && apt-get clean
+
+
+
+## plugins
+# download LuckPerms
+RUN curl -s https://metadata.luckperms.net/data/downloads | jq --raw-output '.downloads.velocity' | wget --content-disposition --trust-server-names -i - -P /plugins
+#
+# Geyser and floodgate for cross platform support with minecraft bedrock
+# geyser
+RUN wget --content-disposition --trust-server-names https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/velocity -P /plugins
+# floodgate
+RUN wget --content-disposition --trust-server-names https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity -P /plugins
+
+# LibertyBans and a few addons: 
+RUN curl -s https://ci.hahota.net:8443/job/LibertyBans/lastSuccessfulBuild/api/json |\
+    jq --raw-output -c '.artifacts[] | select(.fileName | startswith("LibertyBans") or contains("exemption-luckperms") or contains("check")) | .relativePath' \
+    | while read line\
+    ;do echo https://ci.hahota.net:8443/job/LibertyBans/lastSuccessfulBuild/artifact/${line}\
+    ;done \
+    |wget --content-disposition --trust-server-names -i - -P /plugins\
+    && mkdir -p /plugins/libertybans/addons\
+    && mv /plugins/addon-*jar /plugins/libertybans/addons
+
+# chat plugin
+RUN curl -s https://api.github.com/repos/WiIIiam278/HuskChat/releases/latest | jq --raw-output '.assets[] | select(.name | contains("HuskChat") and endswith(".jar")) | .browser_download_url' |\
+    wget --content-disposition --trust-server-names -i - -P /plugins
+
+# tablist plugin
+RUN curl -s https://api.github.com/repos/WiIIiam278/Velocitab/releases/latest | jq --raw-output '.assets[] | select(.name | contains("Velocitab") and endswith(".jar")) | .browser_download_url' |\
+    wget --content-disposition --trust-server-names -i - -P /plugins
+
+
+# whitelist plugin for velocity
+RUN wget --content-disposition --trust-server-names \
+    "https://hangar.papermc.io/api/v1/projects/atikiNBTW/VelocityCoolList/versions/$(\
+    curl -s https://hangar.papermc.io/api/v1/projects/atikiNBTW/VelocityCoolList/latestrelease\
+    -H "accept: text/plain"\
+    )/VELOCITY/download"
+
+
+
+COPY configs/velocity_plugins/ /plugins/
+COPY configs/velocity/ /config/
+RUN echo "\${CFG_PROXY_FORWARDING_SECRET}" > /config/forwarding.secret

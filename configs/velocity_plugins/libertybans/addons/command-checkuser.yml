@@ -1,0 +1,12 @@
+player-does-not-exist: '&cThat player does not exist'
+no-permission: '&cYou do not have permission to check user data'
+punishment-does-not-exist: '&cThat player doesn''t have any active punishment.'
+usage: '&cUsage: /libertybans checkuser <player>'
+layout:
+  - '&7Active punishment for player &e%VICTIM%&f'
+  - '&7Type: &e%TYPE%&f'
+  - '&7Reason: &e%REASON%&f'
+  - '&7Operator: &e%OPERATOR%&f'
+  - 'Time remaining: &e%TIME_REMAINING%'
+ # Whether to enable this addon at all
+enable: true

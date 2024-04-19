@@ -1,0 +1,12 @@
+does-not-exist: '&cThat punishment does not exist. It may be expired or have been revoked.'
+no-permission: '&cSorry, you cannot use this.'
+usage: '&cUsage: /libertybans checkpunish &e<id>'
+layout:
+  - '&7-- Listing punishment &e%ID%&7 --&f'
+  - '&7&oType: &f%TYPE%'
+  - '&7&oSubject: &e%VICTIM%&f'
+  - '&7&oReason: %REASON%&f'
+  - '&7&oOperator: %OPERATOR%&f'
+  - '&7&oTime Remaining: %TIME_REMAINING%'
+ # Whether to enable this addon at all
+enable: true
