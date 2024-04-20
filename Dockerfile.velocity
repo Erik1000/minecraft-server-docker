@@ -57,7 +57,7 @@ RUN wget --content-disposition --trust-server-names \
     "https://hangar.papermc.io/api/v1/projects/atikiNBTW/VelocityCoolList/versions/$(\
     curl -s https://hangar.papermc.io/api/v1/projects/atikiNBTW/VelocityCoolList/latestrelease\
     -H "accept: text/plain"\
-    )/VELOCITY/download"
+    )/VELOCITY/download" -P /plugins
 
 
 
