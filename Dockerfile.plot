@@ -38,6 +38,8 @@ ENV REMOVE_OLD_MODS_INCLUDE="*.jar"
 # replace config values at runtime
 ENV REPLACE_ENV_IN_PLACE=true
 
+ENV CFG_SERVER_NAME=global
+
 ## plugins
 # download LuckPerms
 RUN wget $(curl -s https://metadata.luckperms.net/data/downloads | jq --raw-output '.downloads.bukkit') -P /plugins

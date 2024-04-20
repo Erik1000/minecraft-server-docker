@@ -9,6 +9,8 @@ ENV SYNC_SKIP_NEWER_IN_DESTINATION=false
 ENV REPLACE_ENV_SUFFIXES=yml,yaml,txt,cfg,conf,properties,hjson,json,tml,toml,secret
 ENV REPLACE_ENV_VARIABLES=true
 
+ENV CFG_SERVER_NAME=velocity
+
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y jq \
