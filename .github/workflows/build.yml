@@ -9,7 +9,7 @@ on:
 env:
     REGISTRY: "ghcr.io"
     IMAGE_NAME: "${{ github.repository }}"
-    VERSION: ${{ inputs.version }}
+    VERSION: "${{ inputs.version }}"
 jobs:
     build:
         environment: build
@@ -24,6 +24,8 @@ jobs:
                     - dockerfile: Dockerfile.velocity
                       image: velocity
         steps:
+            - name: version
+              run: echo "using version ${{ env.VERSION }}"
             - uses: actions/checkout@v3
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
