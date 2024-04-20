@@ -26,6 +26,7 @@ ENV ONLINE_MODE=false
 ENV ENABLE_RCON=true
 # saves cpu time
 ENV ENABLE_AUTOPAUSE=true
+ENV JVM_DD_OPTS=disable.watchdog:true
 ENV MAX_TICK_TIME=-1
 # easier configuration 
 ENV COPY_CONFIG_DEST=/data
