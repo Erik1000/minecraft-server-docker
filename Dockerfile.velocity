@@ -9,6 +9,11 @@ ENV SYNC_SKIP_NEWER_IN_DESTINATION=false
 ENV REPLACE_ENV_SUFFIXES=yml,yaml,txt,cfg,conf,properties,hjson,json,tml,toml,secret
 ENV REPLACE_ENV_VARIABLES=true
 
+# removes old plugins 
+ENV REMOVE_OLD_MODS=true
+ENV REMOVE_OLD_MODS_INCLUDE="*.jar"
+
+
 ENV CFG_SERVER_NAME=velocity
 
 RUN apt-get update \

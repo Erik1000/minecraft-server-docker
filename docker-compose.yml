@@ -1,19 +1,25 @@
 services:
-  server:
-    image: t
+  lobby:
+    image: ghcr.io/erik1000/minecraft-server-docker:base-latest
     env_file: .env
+    environment:
+      - CFG_SERVER_NAME=Lobby
     ports:
       - "0.0.0.0:25565:25565"
     volumes:
       - "./server:/data"
   plot:
-    image: p
+    image: ghcr.io/erik1000/minecraft-server-docker:plot-latest
     env_file: .env
+    environment:
+      - CFG_SERVER_NAME=Plot
     volumes:
       - "./plot:/data"
   proxy:
-    image: v
+    image: ghcr.io/erik1000/minecraft-server-docker:velocity-latest
     env_file: .env
+    environment:
+      - CFG_SERVER_NAME=Velocity
     ports:
       - "0.0.0.0:25577:25577"
     volumes:
