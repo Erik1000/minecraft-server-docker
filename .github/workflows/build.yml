@@ -10,12 +10,16 @@ env:
     REGISTRY: "ghcr.io"
     IMAGE_NAME: "${{ github.repository }}"
     VERSION: "${{ inputs.version }}"
+concurrency:
+    group: ${{ github.ref }}
+    cancel-in-progress: true
 jobs:
     build:
         environment: build
         runs-on: ubuntu-latest
         strategy:
             max-parallel: 0
+            fail-fast: true
             matrix:
                 include:
                     - dockerfile: Dockerfile.base
