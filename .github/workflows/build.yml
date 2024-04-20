@@ -48,3 +48,4 @@ jobs:
                   file: ${{ matrix.dockerfile }}
                   tags: "${{ steps.metadata.outputs.tags }}"
                   no-cache: true
+                  build-args: version=${inputs.version}
