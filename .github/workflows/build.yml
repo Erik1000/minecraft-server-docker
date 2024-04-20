@@ -31,8 +31,8 @@ jobs:
               id: metadata
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.image }}"
-                  tags: latest
+                  images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} "
+                  tags: "${{ matrix.image }}-latest"
 
             - name: log in to GHCR
               uses: docker/login-action@v1
