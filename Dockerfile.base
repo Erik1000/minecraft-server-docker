@@ -40,6 +40,14 @@ RUN wget "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/"$(
 # # download floodgate
 # RUN wget --content-disposition --trust-server-names https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot -P /plugins
 
+# download ViaVersion plugin
+RUN wget --content-disposition --trust-server-names \
+    "https://hangar.papermc.io/api/v1/projects/ViaVersion/ViaVersion/versions/$(\
+    curl -s https://hangar.papermc.io/api/v1/projects/ViaVersion/ViaVersion/latestrelease\
+    -H "accept: text/plain"\
+    )/PAPER/download" -P /plugins
+
+
 # copy given plugin folders
 COPY configs/plugins/ /plugins/
 COPY configs/server/ /config/
