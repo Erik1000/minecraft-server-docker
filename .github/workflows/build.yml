@@ -4,12 +4,19 @@ on:
         inputs:
             version:
                 description: "Minecraft server version"
-                required: true
+                required: false
                 type: string
+                default: "latest"
+            velocity_version:
+                description: "Velocity proxy version"
+                required: false
+                type: string
+                default: "latest"
 env:
     REGISTRY: "ghcr.io"
     IMAGE_NAME: "${{ github.repository }}"
     VERSION: "${{ inputs.version }}"
+    VELOCITY_VERSION: "${{ inputs.velocity_version }}"
 concurrency:
     group: ${{ github.ref }}
     cancel-in-progress: true
@@ -84,7 +91,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: version
-              run: echo "using version ${{ env.VERSION }}"
+              run: echo "using version ${{ env.VELOCITY_VERSION }}"
             - uses: actions/checkout@v4
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v3
@@ -110,4 +117,4 @@ jobs:
                   file: Dockerfile.velocity
                   tags: "${{ steps.metadata.outputs.tags }}"
                   no-cache: true
-                  build-args: version=${{ inputs.version }}
+                  build-args: version=${{ inputs.velocity_version }}
