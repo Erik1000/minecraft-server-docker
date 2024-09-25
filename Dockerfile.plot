@@ -1,5 +1,5 @@
 # build plotsquared
-FROM gradle:jdk17-alpine AS plotsquared
+FROM gradle:jdk21-alpine AS plotsquared
 RUN git clone https://github.com/IntellectualSites/PlotSquared.git
 WORKDIR /home/gradle/PlotSquared
 RUN gradle build --info

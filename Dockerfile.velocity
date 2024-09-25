@@ -34,11 +34,15 @@ RUN wget --content-disposition --trust-server-names https://download.geysermc.or
 RUN wget --content-disposition --trust-server-names https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity -P /plugins
 
 # LibertyBans and a few addons: 
-RUN curl -s https://ci.hahota.net:8443/job/LibertyBans/lastSuccessfulBuild/api/json |\
-    jq --raw-output -c '.artifacts[] | select(.fileName | startswith("LibertyBans") or contains("exemption-luckperms") or contains("check")) | .relativePath' \
-    | while read line\
-    ;do echo https://ci.hahota.net:8443/job/LibertyBans/lastSuccessfulBuild/artifact/${line}\
-    ;done \
+# RUN curl -s https://ci.hahota.net:8443/job/LibertyBans/lastSuccessfulBuild/api/json |\
+#     jq --raw-output -c '.artifacts[] | select(.fileName | startswith("LibertyBans") or contains("exemption-luckperms") or contains("check")) | .relativePath' \
+#     | while read line\
+#     ;do echo https://ci.hahota.net:8443/job/LibertyBans/lastSuccessfulBuild/artifact/${line}\
+#     ;done \
+#     |wget --content-disposition --trust-server-names -i - -P /plugins\
+#     && mkdir -p /plugins/libertybans/addons\
+#     && mv /plugins/addon-*jar /plugins/libertybans/addons
+RUN curl -s https://api.github.com/repos/A248/LibertyBans/releases/latest | jq --raw-output '.assets[] | select(.name | startswith("LibertyBans") or contains("exemption-luckperms") or contains("check")) | .browser_download_url' \
     |wget --content-disposition --trust-server-names -i - -P /plugins\
     && mkdir -p /plugins/libertybans/addons\
     && mv /plugins/addon-*jar /plugins/libertybans/addons
