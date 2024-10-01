@@ -48,6 +48,13 @@ RUN wget --content-disposition --trust-server-names \
     )/PAPER/download" -P /plugins
 
 
+RUN wget "https://ci.loohpjames.com/job/ImageFrame/lastSuccessfulBuild/artifact/"$(curl -s https://ci.loohpjames.com/job/ImageFrame//lastSuccessfulBuild/api/json | jq --raw-output -c '.artifacts[] | select(.fileName | contains("ImageFrame")) | .relativePath') -P /plugins
+
+RUN curl -s https://api.github.com/repos/sekwah41/Advanced-Portals/releases/latest | jq --raw-output '.assets[] | select(.name | contains("Advanced-Port") and endswith(".jar")) | .browser_download_url' |\
+    wget --content-disposition --trust-server-names -i - -P /plugins
+
+
+
 # copy given plugin folders
 COPY configs/plugins/ /plugins/
 COPY configs/server/ /config/

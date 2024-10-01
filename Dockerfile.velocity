@@ -1,4 +1,4 @@
-FROM itzg/bungeecord AS base
+FROM itzg/mc-proxy AS base
 
 ARG version=LATEST
 ENV TYPE=VELOCITY
@@ -32,6 +32,8 @@ RUN curl -s https://metadata.luckperms.net/data/downloads | jq --raw-output '.do
 RUN wget --content-disposition --trust-server-names https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/velocity -P /plugins
 # floodgate
 RUN wget --content-disposition --trust-server-names https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity -P /plugins
+# capes etc
+RUN wget --content-disposition --trust-server-names https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/latest/builds/latest/downloads/thirdpartycosmetics -P /plugins/Geyser-Velocity/extensions
 
 # LibertyBans and a few addons: 
 # RUN curl -s https://ci.hahota.net:8443/job/LibertyBans/lastSuccessfulBuild/api/json |\
@@ -62,6 +64,25 @@ RUN wget --content-disposition --trust-server-names \
     curl -s https://hangar.papermc.io/api/v1/projects/atikiNBTW/VelocityCoolList/latestrelease\
     -H "accept: text/plain"\
     )/VELOCITY/download" -P /plugins
+
+
+# Lobby plugin commands /lobby /survival
+# chat plugin
+RUN curl -s https://api.github.com/repos/4drian3d/VLobby/releases/latest | jq --raw-output '.assets[] | select(.name | contains("VLobby") and endswith(".jar")) | .browser_download_url' |\
+    wget --content-disposition --trust-server-names -i - -P /plugins
+
+# Dependency for VLobby plugin
+RUN curl -s https://api.github.com/repos/4drian3d/MCKotlin/releases/latest | jq --raw-output '.assets[] | select(.name | contains("MCKotlinVelocity") and endswith(".jar")) | .browser_download_url' |\
+    wget --content-disposition --trust-server-names -i - -P /plugins
+
+
+# whitelist is annoying, this allows to join with a permission by servername
+# TODO: change back to official repo once PR gets merged and releases uploaded to GitHub Releases
+RUN curl -s https://api.github.com/repos/Erik1000/ServerPermissions/releases/latest | jq --raw-output '.assets[] | select(.name | contains("ServerPermissions") and endswith(".jar")) | .browser_download_url' |\
+    wget --content-disposition --trust-server-names -i - -P /plugins
+
+RUN curl -s https://api.github.com/repos/sekwah41/Advanced-Portals/releases/latest | jq --raw-output '.assets[] | select(.name | contains("Advanced-Portals") and endswith(".jar")) | .browser_download_url' |\
+    wget --content-disposition --trust-server-names -i - -P /plugins
 
 
 

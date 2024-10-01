@@ -7,7 +7,7 @@ services:
     ports:
       - "0.0.0.0:25565:25565"
     volumes:
-      - "./server:/data"
+      - "./lobby:/data"
   plot:
     image: ghcr.io/erik1000/minecraft-server-docker:plot-latest
     env_file: .env
@@ -15,6 +15,13 @@ services:
       - CFG_SERVER_NAME=Plot
     volumes:
       - "./plot:/data"
+  grastaxi:
+    image: ghcr.io/erik1000/minecraft-server-docker:grastaxi-latest
+    env_file: .env
+    environment:
+      - CFG_SERVER_NAME=GrasTaxi
+    volumes:
+      - "./grastaxi:/data"
   proxy:
     image: ghcr.io/erik1000/minecraft-server-docker:velocity-latest
     env_file: .env
