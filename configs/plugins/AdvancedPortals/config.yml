@@ -55,7 +55,7 @@ UseWarpPrefix: true
 BlockSpectatorMode: false
 
 PortalCooldown: 5 # How long after trying to enter a portal until the player can try to enter another. 0 or lower to deactivate.
-ThrowbackAmount: 0.7 # How fast to throw them back, 0 or lower to disable throwback
+ThrowbackAmount: 0 # How fast to throw them back, 0 or lower to disable throwback
 
 # Only disables the gateway block places with "/portal gatewayblock" for now
 # If you want to replace already made portals just use "/portal disablebeacon" and it will run through all the blocks in the area
