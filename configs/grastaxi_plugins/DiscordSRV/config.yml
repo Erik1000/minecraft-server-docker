@@ -206,8 +206,10 @@ DiscordConsoleChannelLogRefreshRateInSeconds: 5
 DiscordConsoleChannelUsageLog: "Console-%date%.log"
 DiscordConsoleChannelBlacklistActsAsWhitelist: true
 DiscordConsoleChannelBlacklistedCommands: ["minecraft:whitelist"]
-DiscordConsoleChannelFilters:
-    {
+DiscordConsoleChannelFilters: {
+        # filter out missing heartbeat warnings because of paused server
+        "(ticks behind)": "",
+        "(DiscordSRV)+.*(heartbeats)": "",
         ".*(?i)async chat thread.*": "",
         ".*There are \\d+ (?:of a max of|out of maximum) \\d+ players online.*": "",
     }
