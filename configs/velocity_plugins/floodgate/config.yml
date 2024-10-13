@@ -33,7 +33,7 @@ player-link:
     enabled: true
 
     # Whether to require a linked account in order to be able to join the server.
-    require-link: true
+    require-link: false
 
     # Set the following option to true when you want to host your own linking database.
     # -> This can work in addition to global linking.
