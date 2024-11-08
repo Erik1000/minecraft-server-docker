@@ -17,8 +17,8 @@ on:
 env:
     REGISTRY: "ghcr.io"
     IMAGE_NAME: "${{ github.repository }}"
-    VERSION: "${{ inputs.version }}"
-    VELOCITY_VERSION: "${{ inputs.velocity_version }}"
+    VERSION: "${{ inputs.version }} || '1.21'"
+    VELOCITY_VERSION: "${{ inputs.velocity_version }} || 'latest'"
 concurrency:
     group: ${{ github.ref }}
     cancel-in-progress: true
