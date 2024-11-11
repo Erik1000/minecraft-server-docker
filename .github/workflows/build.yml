@@ -1,7 +1,5 @@
 name: build and publish docker images
 on:
-    schedule:
-        - cron:  '0 3 */3 * *'
     workflow_dispatch:
         inputs:
             version:
