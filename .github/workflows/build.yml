@@ -152,4 +152,4 @@ jobs:
                   file: Dockerfile.velocity
                   tags: "${{ steps.metadata.outputs.tags }}"
                   no-cache: true
-                  build-args: version=${{ env.VERSION }}
+                  build-args: version=${{ env.VELOCITY_VERSION }}
