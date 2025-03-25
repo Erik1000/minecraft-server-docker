@@ -1,5 +1,7 @@
 name: build and publish docker images
 on:
+    schedule:
+         - cron: "0 3 */2 * *"
     workflow_dispatch:
         inputs:
             version:
@@ -15,7 +17,7 @@ on:
 env:
     REGISTRY: "ghcr.io"
     IMAGE_NAME: "${{ github.repository }}"
-    VERSION: "${{ inputs.version }} || '1.21'"
+    VERSION: "${{ inputs.version }} || '1.21.4'"
     VELOCITY_VERSION: "${{ inputs.velocity_version }} || 'latest'"
 concurrency:
     group: ${{ github.ref }}
@@ -52,7 +54,7 @@ jobs:
                   file: Dockerfile.base
                   tags: "${{ steps.metadata.outputs.tags }}"
                   no-cache: true
-                  build-args: version=${{ inputs.version }}
+                  build-args: version=${{ env.VERSION }}
     plot:
         environment: build
         needs: base
@@ -85,7 +87,7 @@ jobs:
                   file: Dockerfile.plot
                   tags: "${{ steps.metadata.outputs.tags }}"
                   no-cache: true
-                  build-args: version=${{ inputs.version }}
+                  build-args: version=${{ env.VERSION }}
     grastaxi:
         environment: build
         needs: base
@@ -118,7 +120,7 @@ jobs:
                   file: Dockerfile.grastaxi
                   tags: "${{ steps.metadata.outputs.tags }}"
                   no-cache: true
-                  build-args: version=${{ inputs.version }}
+                  build-args: version=${{ env.VERSION }}
     velocity:
         environment: build
         runs-on: ubuntu-latest
@@ -150,4 +152,4 @@ jobs:
                   file: Dockerfile.velocity
                   tags: "${{ steps.metadata.outputs.tags }}"
                   no-cache: true
-                  build-args: version=${{ inputs.velocity_version }}
+                  build-args: version=${{ env.VERSION }}
