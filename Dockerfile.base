@@ -32,7 +32,7 @@ ENV CFG_SERVER_NAME=global
 # download LuckPerms
 RUN wget $(curl -s https://metadata.luckperms.net/data/downloads | jq --raw-output '.downloads.bukkit') -P /plugins
 # download FastAsyncWorldEdit
-RUN wget "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/artifact/"$(curl -s https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/api/json | jq --raw-output -c '.artifacts[] | select(.fileName | contains("-Bukkit")) | .relativePath') -P /plugins
+RUN wget "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/artifact/"$(curl -s https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/api/json | jq --raw-output -c '.artifacts[] | select(.fileName | contains("-Paper")) | .relativePath') -P /plugins
 # download WorldGuard
 RUN wget --content-disposition --trust-server-names https://dev.bukkit.org/projects/worldguard/files/latest -P /plugins
 # download EssentialsX
