@@ -25,10 +25,10 @@ ENV REMOVE_OLD_MODS_INCLUDE="*.jar"
 
 # replace config values at runtime
 ENV REPLACE_ENV_IN_PLACE=true
+ENV SPAWN_PROTECTION=0
 
 ENV CFG_SERVER_NAME=global
 
-ENV SPAWN_PROTECTION=0
 ## plugins
 
 # download LuckPerms

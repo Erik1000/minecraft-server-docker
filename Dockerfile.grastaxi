@@ -1,13 +1,13 @@
 # build armorstandtools
-#FROM maven:latest As ast
-#RUN git clone https://github.com/Aurelien30000/ArmorStandTools.git 
-#WORKDIR /ArmorStandTools
-#RUN mvn -B package --file pom.xml
+FROM maven:latest As ast
+RUN git clone https://github.com/Aurelien30000/ArmorStandTools.git 
+WORKDIR /ArmorStandTools
+RUN mvn -B package --file pom.xml
 
 # server setup
 FROM ghcr.io/erik1000/minecraft-server-docker:base-latest AS base
 
-#COPY --from=ast /ArmorStandTools/target/ArmorStandTools*.jar /plugins
+COPY --from=ast /ArmorStandTools/target/ArmorStandTools*.jar /plugins
 
 # creates graves on death so items do not despawn
 RUN curl -s https://api.github.com/repos/AvarionMC/graves/releases/latest | jq --raw-output '.assets[] | select(.name | contains("Graves") and endswith(".jar")) | .browser_download_url' |\
