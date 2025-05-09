@@ -9,7 +9,7 @@ settings:
       # Grave #
       #########
       grave:
-        time: 10800 # (Second) How long graves should stay alive for, 300 = 5 minutes, 10800 = 3 hours, -1 lasts forever.
+        time: -1 # (Second) How long graves should stay alive for, 300 = 5 minutes, 10800 = 3 hours, -1 lasts forever.
         max: 18 # The max amount of graves an entity can have.
         break: true # Can graves be broken.
         explode: false # Can graves be blown up.
@@ -180,7 +180,7 @@ settings:
       ############
       # Put an obituary for the entity in the grave.
       obituary:
-        enabled: true # Should obituaries be enabled.
+        enabled: false # Should obituaries be enabled.
         title: "&c%owner_name%'s Obituary"
         author: "%killer_name%"
         glow: true # Should the obituary glow.
