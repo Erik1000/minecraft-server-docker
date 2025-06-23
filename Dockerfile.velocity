@@ -1,3 +1,8 @@
+FROM gradle:latest AS tablist
+RUN git clone https://github.com/WiIIiam278/Velocitab.git
+WORKDIR /home/gradle/Velocitab
+RUN gradle build publish --info
+
 FROM itzg/mc-proxy AS base
 
 ARG version=LATEST
@@ -84,7 +89,7 @@ RUN curl -s https://api.github.com/repos/Erik1000/ServerPermissions/releases/lat
 RUN curl -s https://api.github.com/repos/sekwah41/Advanced-Portals/releases/latest | jq --raw-output '.assets[] | select(.name | contains("Advanced-Portals") and endswith(".jar")) | .browser_download_url' |\
     wget --content-disposition --trust-server-names -i - -P /plugins
 
-
+COPY --from=tablist /home/gradle/Velocitab/target/Velocitab-*.jar /plugins
 
 COPY configs/velocity_plugins/ /plugins/
 COPY configs/velocity/ /config/
