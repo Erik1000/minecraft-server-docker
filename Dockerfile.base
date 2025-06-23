@@ -1,6 +1,6 @@
 
 # # AdvancedPortals no longer includes jar file in releases.. so we have to build it manually
-FROM gradle:latest AS portals
+FROM gradle:7.4 AS portals
 RUN git clone https://github.com/sekwah41/Advanced-Portals.git
 WORKDIR /home/gradle/Advanced-Portals
 RUN gradle build --info
