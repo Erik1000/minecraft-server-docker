@@ -50,9 +50,9 @@ RUN wget --content-disposition --trust-server-names https://download.geysermc.or
 #     && mkdir -p /plugins/libertybans/addons\
 #     && mv /plugins/addon-*jar /plugins/libertybans/addons
 RUN curl -s https://api.github.com/repos/A248/LibertyBans/releases/latest | jq --raw-output '.assets[] | select(.name | startswith("LibertyBans") or contains("exemption-luckperms") or contains("check")) | .browser_download_url' \
-    |wget --content-disposition --trust-server-names -i - -P /plugins\
-    && mkdir -p /plugins/libertybans/addons\
-    && mv /plugins/addon-*jar /plugins/libertybans/addons
+    |wget --content-disposition --trust-server-names -i - -P /plugins
+#    && mkdir -p /plugins/libertybans/addons\
+#    && mv /plugins/addon-*jar /plugins/libertybans/addons
 
 # chat plugin
 RUN curl -s https://api.github.com/repos/WiIIiam278/HuskChat/releases/latest | jq --raw-output '.assets[] | select(.name | contains("HuskChat") and endswith(".jar")) | .browser_download_url' |\
