@@ -1,11 +1,11 @@
 # build plotsquared
-FROM gradle:jdk21-alpine AS plotsquared
+FROM gradle:8 AS plotsquared
 RUN git clone https://github.com/IntellectualSites/PlotSquared.git
 WORKDIR /home/gradle/PlotSquared
 RUN gradle build --info
 
 # build armorstandtools
-FROM maven:latest As ast
+FROM maven:latest AS ast
 RUN git clone https://github.com/Aurelien30000/ArmorStandTools.git 
 WORKDIR /ArmorStandTools
 RUN mvn -B package --file pom.xml

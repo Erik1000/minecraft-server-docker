@@ -1,8 +1,3 @@
-FROM gradle:latest AS tablist
-RUN git clone https://github.com/WiIIiam278/Velocitab.git
-WORKDIR /home/gradle/Velocitab
-RUN gradle build publish --info
-
 FROM itzg/mc-proxy AS base
 
 ARG version=LATEST
@@ -82,14 +77,14 @@ RUN curl -s https://api.github.com/repos/4drian3d/MCKotlin/releases/latest | jq 
 
 
 # whitelist is annoying, this allows to join with a permission by servername
-# TODO: change back to official repo once PR gets merged and releases uploaded to GitHub Releases
-RUN curl -s https://api.github.com/repos/Erik1000/ServerPermissions/releases/latest | jq --raw-output '.assets[] | select(.name | contains("ServerPermissions") and endswith(".jar")) | .browser_download_url' |\
+RUN curl -s https://api.github.com/repos/4drian3d/ServerPermissions/releases/latest | jq --raw-output '.assets[] | select(.name | contains("ServerPermissions") and endswith(".jar")) | .browser_download_url' |\
     wget --content-disposition --trust-server-names -i - -P /plugins
 
-RUN curl -s https://api.github.com/repos/sekwah41/Advanced-Portals/releases/latest | jq --raw-output '.assets[] | select(.name | contains("Advanced-Portals") and endswith(".jar")) | .browser_download_url' |\
-    wget --content-disposition --trust-server-names -i - -P /plugins
+# download advanced portals
+RUN wget --content-disposition --trust-server-names $(curl -s "https://api.modrinth.com/v2/project/DKY9btbd/version?loaders=velocity&game_versions=1.21" \
+    | jq -r 'max_by(.date_published) | .files[0].url') -P /plugins
 
-COPY --from=tablist /home/gradle/Velocitab/target/Velocitab-*.jar /plugins
+
 
 COPY configs/velocity_plugins/ /plugins/
 COPY configs/velocity/ /config/
