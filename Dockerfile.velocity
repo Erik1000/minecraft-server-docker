@@ -1,3 +1,8 @@
+FROM gradle:8 AS tablist
+RUN git clone https://github.com/WiIIiam278/Velocitab.git
+WORKDIR /home/gradle/Velocitab
+RUN gradle build
+
 FROM itzg/mc-proxy AS base
 
 ARG version=LATEST
@@ -53,10 +58,10 @@ RUN curl -s https://api.github.com/repos/A248/LibertyBans/releases/latest | jq -
 RUN curl -s https://api.github.com/repos/WiIIiam278/HuskChat/releases/latest | jq --raw-output '.assets[] | select(.name | contains("HuskChat") and endswith(".jar")) | .browser_download_url' |\
     wget --content-disposition --trust-server-names -i - -P /plugins
 
-# tablist plugin
-# download advanced portals
-RUN wget --content-disposition --trust-server-names $(curl -s "https://api.modrinth.com/v2/project/Q10irTG0/version?loaders=velocity&game_versions=1.21" \
-    | jq -r 'max_by(.date_published) | .files[0].url') -P /plugins
+# download tablist plugin
+# FIXME: currently the latest published version fails on 1.21.9 so we built it from master (tablist stage). in the future use the download again
+#RUN wget --content-disposition --trust-server-names $(curl -s "https://api.modrinth.com/v2/project/Q10irTG0/version?loaders=velocity&game_versions=1.21" \
+#    | jq -r 'max_by(.date_published) | .files[0].url') -P /plugins
 
 
 
@@ -87,7 +92,7 @@ RUN wget --content-disposition --trust-server-names $(curl -s "https://api.modri
     | jq -r 'max_by(.date_published) | .files[0].url') -P /plugins
 
 
-
+COPY --from=tablist /home/gradle/Velocitab/target/*.jar /plugins
 COPY configs/velocity_plugins/ /plugins/
 COPY configs/velocity/ /config/
 RUN echo "\${CFG_PROXY_FORWARDING_SECRET}" > /config/forwarding.secret
