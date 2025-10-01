@@ -54,8 +54,10 @@ RUN curl -s https://api.github.com/repos/WiIIiam278/HuskChat/releases/latest | j
     wget --content-disposition --trust-server-names -i - -P /plugins
 
 # tablist plugin
-RUN curl -s https://api.github.com/repos/WiIIiam278/Velocitab/releases/latest | jq --raw-output '.assets[] | select(.name | contains("Velocitab") and endswith(".jar")) | .browser_download_url' |\
-    wget --content-disposition --trust-server-names -i - -P /plugins
+# download advanced portals
+RUN wget --content-disposition --trust-server-names $(curl -s "https://api.modrinth.com/v2/project/Q10irTG0/version?loaders=velocity&game_versions=1.21" \
+    | jq -r 'max_by(.date_published) | .files[0].url') -P /plugins
+
 
 
 # whitelist plugin for velocity
