@@ -81,7 +81,7 @@ RUN curl -s https://api.github.com/repos/4drian3d/ServerPermissions/releases/lat
     wget --content-disposition --trust-server-names -i - -P /plugins
 
 # download advanced portals
-RUN wget --content-disposition --trust-server-names $(curl -s "https://api.modrinth.com/v2/project/DKY9btbd/version?loaders=velocity&game_versions=1.21" \
+RUN wget --content-disposition --trust-server-names $(curl -s "https://api.modrinth.com/v2/project/axTqSWQA/version?loaders=velocity&game_versions=1.21" \
     | jq -r 'max_by(.date_published) | .files[0].url') -P /plugins
 
 
