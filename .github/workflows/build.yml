@@ -17,7 +17,7 @@ on:
 env:
     REGISTRY: "ghcr.io"
     IMAGE_NAME: "${{ github.repository }}"
-    VERSION: "${{ inputs.version || '1.21.4' }}"
+    VERSION: "${{ inputs.version || '1.21.9' }}"
     VELOCITY_VERSION: "${{ inputs.velocity_version || 'latest' }}"
 concurrency:
     group: ${{ github.ref }}
